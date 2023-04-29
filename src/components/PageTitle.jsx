@@ -12,7 +12,6 @@ export const PageTitle = () => {
   return (
     <Container maxWidth="lg" sx={styles.container}>
       <Box
-        container
         maxWidth="md"
         sx={{
           margin: "auto!important",
