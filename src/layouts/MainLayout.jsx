@@ -9,6 +9,7 @@ import EggIcon from "@mui/icons-material/Egg";
 function MainLayout() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <MainHeader />
