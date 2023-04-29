@@ -1,8 +1,17 @@
 import { SearchOutlined } from "@mui/icons-material";
-import { Stack, Container, Grid, Typography } from "@mui/material";
+import {
+  Stack,
+  Container,
+  Grid,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import { Box } from "@mui/system";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { changePage, searchQuery } from "../features/pokemons/pokemonSlice";
 import { FormProvider, FTextField } from "./form";
 
@@ -56,10 +65,14 @@ export const SearchBox = () => {
   const methods = useForm(defaultValues);
   const { handleSubmit } = methods;
   const dispatch = useDispatch();
+  const [content, setContent] = useState("");
+  const navigate = useNavigate();
 
-  const onSubmit = data => {
-    console.log(data);
-    dispatch(searchQuery(data.search));
+  const onSubmit = () => {
+    navigate(`/pokemons/search`);
+    defaultValues.search = content;
+    dispatch(searchQuery(content.toLowerCase()));
+    setContent("");
     dispatch(changePage(1));
   };
 
@@ -77,8 +90,22 @@ export const SearchBox = () => {
             <Typography variant="h5">Name or Number</Typography>
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
               <Stack direction="row" alignItems="center" spacing={2}>
-                <FTextField name="search" sx={styles.inputText} />
-                <SearchOutlined sx={styles.icon} />
+                <FTextField
+                  name="search"
+                  sx={styles.inputText}
+                  value={content}
+                  onChange={event => setContent(event.target.value)}
+                />
+
+                <InputAdornment position="end">
+                  <IconButton
+                    type="submit"
+                    color="primary"
+                    aria-label="search by name"
+                  >
+                    <SearchOutlined sx={styles.icon} />
+                  </IconButton>
+                </InputAdornment>
               </Stack>
             </FormProvider>
             <Typography>
