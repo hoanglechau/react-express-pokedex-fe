@@ -143,7 +143,6 @@ export const DetailPage = () => {
         </Box>
       </Box>
       <Box
-        container
         maxWidth="md"
         sx={{
           margin: "auto!important",
