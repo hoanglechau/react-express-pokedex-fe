@@ -8,9 +8,11 @@ import { getPokemons } from "../features/pokemons/pokemonSlice";
 export const HomePage = () => {
   const { search, page, type } = useSelector(state => state.pokemons);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPokemons({ page, search, type }));
   }, [page, search, type, dispatch]);
+
   return (
     <>
       <PageTitle title="Pokedex" />
