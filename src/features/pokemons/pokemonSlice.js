@@ -1,13 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 import { POKEMONS_PER_PAGE } from "../../app/config";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { pokemonTypes } from "../../pokemonTypes";
 
 export const getPokemons = createAsyncThunk(
   "pokemons/getPokemons",
   async ({ page, search, type }, { rejectWithValue }) => {
+    // allow searching Pokemons by types and names
+    let name;
+    if (pokemonTypes.includes(search)) {
+      type = search;
+    } else {
+      name = search;
+    }
+
     try {
       let url = `/pokemons?page=${page}&limit=${POKEMONS_PER_PAGE}`;
-      if (search) url += `&search=${search}`;
+      if (name) url += `&name=${name}`;
       if (type) url += `&type=${type}`;
       const response = await apiService.get(url);
       const timeout = () => {
@@ -18,7 +29,7 @@ export const getPokemons = createAsyncThunk(
         });
       };
       await timeout();
-      return response.data;
+      return response;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -31,8 +42,8 @@ export const getPokemonById = createAsyncThunk(
     try {
       let url = `/pokemons/${id}`;
       const response = await apiService.get(url);
-      if (!response.data) return rejectWithValue({ message: "No data" });
-      return response.data;
+      if (!response) return rejectWithValue({ message: "No data" });
+      return response;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -47,6 +58,7 @@ export const addPokemon = createAsyncThunk(
       await apiService.post(url, { name, id, url: imgUrl, types });
       return;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error);
     }
   }
@@ -94,6 +106,12 @@ export const pokemonSlice = createSlice({
     page: 1,
   },
   reducers: {
+    startLoading(state) {
+      state.isLoading = true;
+    },
+    stopLoading(state) {
+      state.isLoading = false;
+    },
     changePage: (state, action) => {
       if (action.payload) {
         state.page = action.payload;
@@ -103,9 +121,11 @@ export const pokemonSlice = createSlice({
     },
     typeQuery: (state, action) => {
       state.type = action.payload;
+      getPokemons(state.type);
     },
     searchQuery: (state, action) => {
       state.search = action.payload;
+      getPokemons(state.page, state.search);
     },
   },
   extraReducers: {
