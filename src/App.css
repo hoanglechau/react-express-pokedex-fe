@@ -10,7 +10,7 @@ body {
 
 /* stylelint-disable */
 .App {
-  background-image: url("/public/images/container_bg.png");
+  background-image: url("/images/container_bg.png");
 }
 /* stylelint-enable */
 
