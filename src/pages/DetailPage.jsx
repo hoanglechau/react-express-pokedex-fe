@@ -193,7 +193,7 @@ export const DetailPage = () => {
                     <div>{pokemon?.weight || "Unknown"}</div>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography color="white">Height</Typography>
+                    <Typography color="white">Category</Typography>
                     <div>{pokemon?.category || "Unknown"}</div>
                   </Grid>
                   <Grid item xs={6}>
@@ -204,7 +204,7 @@ export const DetailPage = () => {
               </Box>
               <Typography variant="p">Type</Typography>
               <Grid container spacing={1}>
-                {pokemon?.types.map(type => (
+                {pokemon?.types?.map(type => (
                   <Grid item key={type} xs={4}>
                     <PokeType type={type} size="large" color="white" />
                   </Grid>
@@ -353,10 +353,10 @@ const calculateWeaknesses = types => {
     fairy: 0,
   };
 
-  types.forEach(type => {
-    weaknesses[type].weak.forEach(t => total[t]++);
-    weaknesses[type].resistant.forEach(t => total[t]--);
-    weaknesses[type].nullified.forEach(t => total[t]--);
+  types?.forEach(type => {
+    weaknesses[type]?.weak?.forEach(t => total[t]++);
+    weaknesses[type]?.resistant?.forEach(t => total[t]--);
+    weaknesses[type]?.nullified?.forEach(t => total[t]--);
   });
   let final = [];
   Object.keys(total).forEach(type => {
