@@ -1,1 +1,3 @@
-# react-express-pokedex-fe
+# Pokedex App Frontend
+- Built with React and Redux
+- [Live Site]()
