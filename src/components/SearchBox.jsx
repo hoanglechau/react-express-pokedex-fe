@@ -69,7 +69,7 @@ export const SearchBox = () => {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    navigate(`/pokemons/search`);
+    navigate(`/pokemons/`);
     defaultValues.search = content;
     dispatch(searchQuery(content.toLowerCase()));
     setContent("");
