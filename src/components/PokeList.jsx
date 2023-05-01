@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePage, typeQuery } from "../features/pokemons/pokemonSlice";
 import { Link } from "react-router-dom";
 import { pokemonTypes } from "../pokemonTypes";
+
 const styles = {
   container: {
     padding: "0!important",
