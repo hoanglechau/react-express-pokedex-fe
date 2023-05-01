@@ -1,1 +1,3 @@
-# Pokedex App Frontend built with React and Redux
+# Pokedex App Frontend
+- Built with React and Redux
+- [Live Site]()
