@@ -117,7 +117,7 @@ export const SearchBox = () => {
         <Grid item xs={12} sm={12} md={6} sx={styles.center}>
           <Box sx={styles.boxRight}>
             <Typography variant="h6">
-              Search for a Pokémon by name or using its National Pokédex number.
+              Search for a Pokémon by name or type
             </Typography>
           </Box>
         </Grid>
